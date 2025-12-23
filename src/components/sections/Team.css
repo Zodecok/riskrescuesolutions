@@ -1,0 +1,131 @@
+/* Team.css */
+.team-section {
+    background-color: var(--color-bg-white);
+}
+
+.team-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.team-card {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    background-color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+}
+
+.team-header {
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    width: 100%;
+}
+
+.team-name {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+}
+
+.team-role {
+    font-family: var(--font-body);
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 1.1rem;
+}
+
+.team-bio {
+    font-size: 1.05rem;
+    color: var(--color-text-main);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+}
+
+.qualifications-dropdown {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.dropdown-header {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.dropdown-header:hover {
+    background-color: #f1f5f9;
+}
+
+.dropdown-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.dropdown-icon {
+    font-size: 1.25rem;
+    transition: transform var(--transition-normal);
+}
+
+.dropdown-icon.open {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease-in-out, padding var(--transition-normal);
+    background-color: white;
+}
+
+.dropdown-content.open {
+    padding: var(--spacing-md);
+    max-height: 500px;
+    /* Arbitrary large height */
+    border-top: 1px solid #e5e7eb;
+}
+
+.qual-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.5rem 1rem;
+}
+
+.qual-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+}
+
+.qual-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .team-card {
+        padding: var(--spacing-xl);
+    }
+}
