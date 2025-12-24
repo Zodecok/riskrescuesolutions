@@ -37,4 +37,41 @@
     width: 100%;
     height: 100%;
     border: 0;
+    pointer-events: none; /* Disable interaction by default */
+    transition: all 0.3s ease;
+}
+
+.map-wrapper.interactive iframe {
+    pointer-events: auto; /* Enable when interaction is active */
+}
+
+.map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Subtle darkening */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.map-overlay:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Darker on hover */
+}
+
+.map-overlay-text {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 4px; /* Using explicit 4px as fallback or var(--radius-md) if consistent */
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    pointer-events: none; /* Let clicks pass through text to the overlay div */
+    user-select: none;
 }

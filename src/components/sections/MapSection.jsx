@@ -1,6 +1,17 @@
+import { useState } from 'react';
 import './MapSection.css';
 
 const MapSection = () => {
+    const [isInteractionEnabled, setIsInteractionEnabled] = useState(false);
+
+    const enableInteraction = () => {
+        setIsInteractionEnabled(true);
+    };
+
+    const disableInteraction = () => {
+        setIsInteractionEnabled(false);
+    };
+
     return (
         <section className="section-wrapper map-section" id="service-map">
             <div className="container map-container">
@@ -11,7 +22,15 @@ const MapSection = () => {
                     </p>
                 </div>
 
-                <div className="map-wrapper">
+                <div 
+                    className={`map-wrapper ${isInteractionEnabled ? 'interactive' : ''}`}
+                    onMouseLeave={disableInteraction}
+                >
+                    {!isInteractionEnabled && (
+                        <div className="map-overlay" onClick={enableInteraction}>
+                            <span className="map-overlay-text">Click to Interact</span>
+                        </div>
+                    )}
                     <iframe
                         src="https://www.google.com/maps/d/embed?mid=17wOoyZsnSX_s1_BZ47V9IVnNl2jKtQU&ehbc=2E312F"
                         title="Risk Rescue Solutions Service Map"
