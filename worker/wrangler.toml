@@ -1,0 +1,9 @@
+name = "rrs-contact"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+LEAD_TO_EMAIL = "paul@riskrescuesolutions.com.au"
+LEAD_FROM_EMAIL = "Risk Rescue Website <website@mail.phora.com.au>"
+# RESEND_API_KEY is a secret: set it with `npx wrangler secret put RESEND_API_KEY`

@@ -3,10 +3,8 @@ import Icon from '../Icon';
 import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '../../content';
 import './Contact.css';
 
-// Free form-to-email service (formsubmit.co). The first message sent triggers a
-// one-time "activate this form" email to this address; click it and every
-// message after that lands straight in the inbox.
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${EMAIL}`;
+// Our Cloudflare Worker (see /worker) emails each enquiry to Paul through Resend.
+const FORM_ENDPOINT = 'https://rrs-contact.bunjicoops.workers.dev';
 
 const details = [
     { icon: 'phone', label: 'Phone', value: PHONE_DISPLAY, href: PHONE_HREF },
@@ -22,22 +20,16 @@ const Contact = () => {
         e.preventDefault();
         const form = e.target;
         const data = Object.fromEntries(new FormData(form));
-        if (data._honey) return; // bot filled the hidden field
 
         setStatus('sending');
         try {
             const res = await fetch(FORM_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({
-                    ...data,
-                    _subject: `Website enquiry from ${data.name}`,
-                    _template: 'table',
-                    _captcha: 'false',
-                }),
+                body: JSON.stringify(data),
             });
             const json = await res.json().catch(() => ({}));
-            if (!res.ok || String(json.success) === 'false') throw new Error(json.message);
+            if (!res.ok || !json.ok) throw new Error(json.error);
             form.reset();
             setStatus('sent');
         } catch {
