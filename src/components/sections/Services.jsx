@@ -3,97 +3,60 @@ import './Services.css';
 const services = [
     {
         title: 'Auditing',
-        description: null,
-        items: [
-            'ISO 19011',
-            'ISO 14001',
-            'ISO 45001',
-            'ISO 9001',
-            'Informal auditing as required'
-        ],
-        icon: 'clipboard'
+        items: ['ISO 19011', 'ISO 14001', 'ISO 45001', 'ISO 9001', 'Informal audits as required'],
     },
     {
-        title: 'Nationally Recognised Training',
-        description: null,
-        items: [
-            'Work at Heights',
-            'Confined Space Entry',
-            'Gas Test Atmospheres',
-            'Permit Issuer'
-        ],
-        icon: 'school'
+        title: 'Nationally recognised training',
+        items: ['Work at heights', 'Confined space entry', 'Gas test atmospheres', 'Permit issuer'],
     },
     {
-        title: 'Risk Management',
-        description: 'OH&S Management Systems',
-        icon: '🛡️'
+        title: 'Risk management',
+        text: 'Building and maintaining OH&S management systems that fit how your business actually runs.',
     },
     {
         title: 'Rehabilitation',
-        description: 'Rehabilitation and Return To Work Coordinator (QLD)',
-        icon: 'medical'
+        text: 'Rehabilitation and Return to Work Coordinator (QLD) to get injured workers safely back on the job.',
     },
     {
-        title: 'Incident Response',
-        description: 'Critical Leadership / Crisis Management / Business Continuity / Medical Response',
-        icon: 'fire'
+        title: 'Incident response',
+        text: 'Critical leadership, crisis management, business continuity and medical response.',
     },
     {
-        title: 'Incident Investigations',
-        description: 'Incident Investigations',
-        icon: 'mag'
+        title: 'Incident investigations',
+        text: 'Finding out what happened and why, and making sure it doesn\'t happen again.',
     },
     {
-        title: 'Fire Equipment',
-        description: 'Fire Extinguisher and Fire Hose Reel Test and Tag',
-        icon: 'fire-ext'
-    }
+        title: 'Fire equipment',
+        text: 'Test and tag of fire extinguishers and fire hose reels.',
+    },
 ];
 
-const Services = () => {
-    return (
-        <section className="section-wrapper services-section" id="services">
-            <div className="container">
-                <div className="services-header">
-                    <h2 className="section-title">Our Services</h2>
-                    <p className="section-description">
-                        Comprehensive safety solutions designed to protect your workforce and your business.
-                    </p>
-                </div>
+const Services = () => (
+    <section className="section" id="services">
+        <div className="container">
+            <span className="eyebrow">Services</span>
+            <h2 className="section-heading">What we can help with</h2>
+            <p className="section-intro">
+                Safety support for your workforce and your business, from a one-off audit to ongoing help.
+            </p>
 
-                <div className="services-grid">
-                    {services.map((service, index) => (
-                        <div className="service-card" key={index}>
-                            <div className="service-icon">
-                                {/* Placeholder for actual SVG icons */}
-                                <span style={{ fontSize: '1.5rem' }}>
-                                    {service.icon === 'clipboard' ? '📋' :
-                                        service.icon === 'school' ? '🎓' :
-                                            service.icon === 'mag' ? '🔍' :
-                                                service.icon === 'fire' ? '🔥' :
-                                                    service.icon === 'medical' ? '🧪' :
-                                                        service.icon === 'fire-ext' ? '🧯' : '🛡️'}
-                                </span>
-                            </div>
-                            <h3 className="service-title">{service.title}</h3>
-
-                            {service.items ? (
-                                <ul className="service-list">
-                                    {service.items.map((item, i) => (
-                                        <li key={i}>{item}</li>
-                                    ))}
-                                    {/* <a href="#contact" className="service-link">Learn more →</a> */}
-                                </ul>
-                            ) : (
-                                <p className="service-desc">{service.description}</p>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
+            <ol className="services">
+                {services.map((s, i) => (
+                    <li className="service" key={s.title}>
+                        <span className="service__num">{String(i + 1).padStart(2, '0')}</span>
+                        <h3 className="service__title">{s.title}</h3>
+                        {s.items ? (
+                            <ul className="service__items">
+                                {s.items.map((it) => <li key={it}>{it}</li>)}
+                            </ul>
+                        ) : (
+                            <p className="service__text">{s.text}</p>
+                        )}
+                    </li>
+                ))}
+            </ol>
+        </div>
+    </section>
+);
 
 export default Services;

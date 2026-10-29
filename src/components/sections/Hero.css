@@ -1,125 +1,108 @@
-/* Hero.css */
 .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
+    margin-top: calc(var(--header-h) * -1);
+    padding-top: calc(var(--header-h) + 28px);
+    padding-bottom: 48px;
+    background: var(--paper);
+}
+
+.hero__banner {
+    max-width: 640px;
+    padding-bottom: 28px;
+    border-bottom: 3px solid var(--red);
+    margin-bottom: 28px;
+}
+
+.hero__banner img {
     width: 100%;
+}
+
+.hero__body {
+    max-width: 640px;
+}
+
+.hero__lead {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--ink);
+    font-size: clamp(1.45rem, 5.2vw, 2.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+}
+
+.hero__text {
+    color: var(--grey);
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+}
+
+.hero__actions {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    /* Fallback background if image fails */
-    background: var(--color-primary);
-    color: white;
-    margin-top: -80px;
-    /* Offset navbar height */
-    padding-top: 80px;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Industrial dark gradient pattern */
-    background:
-        linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.7)),
-        repeating-linear-gradient(45deg,
-            transparent,
-            transparent 10px,
-            rgba(255, 255, 255, 0.03) 10px,
-            rgba(255, 255, 255, 0.03) 20px),
-        radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
-    z-index: 1;
+.hero__creds {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 20px;
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 900px;
-    padding: 0 var(--spacing-md);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-    text-transform: uppercase;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-}
-
-.hero-subtitle {
-    font-family: var(--font-body);
-    font-size: 1.25rem;
-    color: #cbd5e1;
-    margin-bottom: var(--spacing-lg);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero-cta-group {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-md);
-    flex-wrap: wrap;
-}
-
-.btn-primary,
-.btn-secondary {
-    padding: 1rem 2rem;
-    border-radius: var(--radius-sm);
+.hero__creds strong {
+    display: block;
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all var(--transition-fast);
-    display: inline-block;
+    color: var(--ink);
+    margin-bottom: 2px;
 }
 
-.btn-primary {
-    background-color: var(--color-secondary);
-    color: white;
-    box-shadow: var(--shadow-orange);
+.hero__creds span {
+    display: block;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--grey);
 }
 
-.btn-primary:hover {
-    background-color: var(--color-secondary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
-}
-
-.btn-secondary {
-    border: 2px solid white;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: white;
-    color: var(--color-primary);
-    transform: translateY(-2px);
-}
-
-@keyframes heroFadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+@media (min-width: 560px) {
+    .hero__actions {
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 }
 
-@media (min-width: 768px) {
-    .hero-title {
-        font-size: 4.5rem;
+@media (min-width: 900px) {
+    .hero {
+        padding-top: calc(var(--header-h) + 72px);
+        padding-bottom: 72px;
     }
 
-    .hero-subtitle {
-        font-size: 1.5rem;
+    .hero__banner {
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+    }
+
+    .hero__text {
+        font-size: 1.15rem;
+    }
+
+    .hero__creds {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+        margin-top: 80px;
+        padding-top: 32px;
+    }
+
+    .hero__creds li + li {
+        border-left: 1px solid var(--line);
+        padding-left: 32px;
+    }
+
+    .hero__creds strong {
+        font-size: 1.3rem;
     }
 }

@@ -2,41 +2,32 @@ import { useState } from 'react';
 import './MapSection.css';
 
 const MapSection = () => {
-    const [isInteractionEnabled, setIsInteractionEnabled] = useState(false);
-
-    const enableInteraction = () => {
-        setIsInteractionEnabled(true);
-    };
-
-    const disableInteraction = () => {
-        setIsInteractionEnabled(false);
-    };
+    // The map is locked until tapped, so swiping past it on a phone scrolls the page instead of the map.
+    const [active, setActive] = useState(false);
 
     return (
-        <section className="section-wrapper map-section" id="service-map">
-            <div className="container map-container">
-                <div className="map-header">
-                    <h2 className="section-title">Map of Our Services Australia Wide</h2>
-                    <p className="section-description">
-                        Explore our footprint across the country. Risk Rescue Solutions has successfully delivered tailored safety interventions for businesses nationwide. We believe in accessible safety for everyone, providing customized solutions to meet your needs wherever you operate in Australia.
-                    </p>
-                </div>
+        <section className="section section--warm" id="areas">
+            <div className="container">
+                <span className="eyebrow">Where we work</span>
+                <h2 className="section-heading">Sunshine Coast based, working Australia-wide</h2>
+                <p className="section-intro">
+                    The map shows sites where we've delivered safety work for clients across the country.
+                </p>
 
-                <div 
-                    className={`map-wrapper ${isInteractionEnabled ? 'interactive' : ''}`}
-                    onMouseLeave={disableInteraction}
-                >
-                    {!isInteractionEnabled && (
-                        <div className="map-overlay" onClick={enableInteraction}>
-                            <span className="map-overlay-text">Click to Interact</span>
-                        </div>
-                    )}
+                <div className={`map ${active ? 'is-active' : ''}`} onMouseLeave={() => setActive(false)}>
                     <iframe
                         src="https://www.google.com/maps/d/embed?mid=17wOoyZsnSX_s1_BZ47V9IVnNl2jKtQU&ehbc=2E312F"
-                        title="Risk Rescue Solutions Service Map"
+                        title="Map of sites where Risk Rescue Solutions has worked"
                         loading="lazy"
                         allowFullScreen
-                    ></iframe>
+                    />
+                    {active ? (
+                        <button className="map__done" onClick={() => setActive(false)}>Done</button>
+                    ) : (
+                        <button className="map__cover" onClick={() => setActive(true)}>
+                            <span>Tap to explore the map</span>
+                        </button>
+                    )}
                 </div>
             </div>
         </section>

@@ -1,25 +1,50 @@
+import Icon from '../Icon';
+import logo from '../../assets/brand/logo.png';
+import { PHONE_DISPLAY, PHONE_HREF } from '../../content';
 import './Hero.css';
 
-const Hero = () => {
-    return (
-        <section className="hero" id="home">
-            <div className="hero-background"></div>
-            <div className="hero-content">
-                <h1 className="hero-title">
-                    Tailored Risk Management Solutions
-                    <br />
-                    <span style={{ color: 'var(--color-secondary)' }}>Queensland, Australia</span>
-                </h1>
-                <p className="hero-subtitle">
-                    Over 25 years of experience partnering with you to identify hazards and implement practical safety controls.
+const credentials = [
+    { big: '25+ years', small: 'in safety, policing and emergency response' },
+    { big: 'Lead Auditor', small: 'ISO 45001, 9001, 14001 and 19011' },
+    { big: 'Trainer', small: 'Nationally recognised high-risk training' },
+    { big: '$10M', small: 'Public liability insurance' },
+];
+
+const Hero = () => (
+    <section className="hero" id="top">
+        <div className="container">
+            <h1 className="hero__banner">
+                <img src={logo} alt="Risk Rescue Solutions" width="906" height="161" />
+            </h1>
+
+            <div className="hero__body">
+                <p className="hero__lead">
+                    Tailored safety and risk management for Queensland businesses.
                 </p>
-                <div className="hero-cta-group">
-                    <a href="#contact" className="btn-primary">Get a Quote</a>
-                    <a href="#services" className="btn-secondary">Our Services</a>
+                <p className="hero__text">
+                    Based on the Sunshine Coast and working Australia-wide across mining, civil construction
+                    and manufacturing. We work alongside your team to find the hazards and put practical
+                    controls in place, without slowing the job down.
+                </p>
+
+                <div className="hero__actions">
+                    <a href={PHONE_HREF} className="btn btn--primary">
+                        <Icon name="phone" />Call {PHONE_DISPLAY}
+                    </a>
+                    <a href="#contact" className="btn btn--ghost">Send an enquiry</a>
                 </div>
             </div>
-        </section>
-    );
-};
+
+            <ul className="hero__creds">
+                {credentials.map((c) => (
+                    <li key={c.big}>
+                        <strong>{c.big}</strong>
+                        <span>{c.small}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+);
 
 export default Hero;

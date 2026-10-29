@@ -1,10 +1,19 @@
 import { useState } from 'react';
+import Icon from '../Icon';
+import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '../../content';
 import './Contact.css';
 
 // Free form-to-email service (formsubmit.co). The first message sent triggers a
 // one-time "activate this form" email to this address; click it and every
 // message after that lands straight in the inbox.
-const FORM_ENDPOINT = 'https://formsubmit.co/ajax/paul@riskrescuesolutions.com.au';
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${EMAIL}`;
+
+const details = [
+    { icon: 'phone', label: 'Phone', value: PHONE_DISPLAY, href: PHONE_HREF },
+    { icon: 'mail', label: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
+    { icon: 'pin', label: 'Office', value: ADDRESS },
+    { icon: 'clock', label: 'Hours', value: 'Mon to Fri, 8am to 5pm', note: 'Weekends by appointment' },
+];
 
 const Contact = () => {
     const [status, setStatus] = useState('idle'); // idle | sending | sent | error
@@ -37,77 +46,68 @@ const Contact = () => {
     };
 
     return (
-        <section className="section-wrapper contact-section" id="contact">
-            <div className="container contact-container">
-                <div className="contact-info-card">
-                    <h3>Contact Information</h3>
-                    <p style={{ marginBottom: '2rem', color: '#cbd5e1' }}>
-                        Ready to improve your safety standards? Reach out for a risk-free consultation.
+        <section className="section contact" id="contact">
+            <div className="container contact__grid">
+                <div>
+                    <span className="eyebrow">Contact</span>
+                    <h2 className="section-heading">Talk to us about your site</h2>
+                    <p className="section-intro">
+                        Give Paul a call to talk through what you need, or send a message and he'll get back to you.
                     </p>
 
-                    <div className="info-item">
-                        <span className="info-icon">📍</span>
-                        <div className="info-content">
-                            <h4>Address</h4>
-                            <p>9 Treetop Court, Mooloolah Valley 4553</p>
-                        </div>
-                    </div>
-
-                    <div className="info-item">
-                        <span className="info-icon">📞</span>
-                        <div className="info-content">
-                            <h4>Phone</h4>
-                            <p><a href="tel:0407557612">0407 557 612</a></p>
-                        </div>
-                    </div>
-
-                    <div className="info-item">
-                        <span className="info-icon">✉️</span>
-                        <div className="info-content">
-                            <h4>Email</h4>
-                            <p><a href="mailto:paul@riskrescuesolutions.com.au">paul@riskrescuesolutions.com.au</a></p>
-                        </div>
-                    </div>
-
-                    <div className="info-item">
-                        <span className="info-icon">🕒</span>
-                        <div className="info-content">
-                            <h4>Hours</h4>
-                            <p>Mon-Fri: 8am - 5pm</p>
-                            <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>Sat-Sun: Appointment Only</p>
-                        </div>
-                    </div>
+                    <ul className="contact__details">
+                        {details.map((d) => (
+                            <li key={d.label}>
+                                <Icon name={d.icon} />
+                                <div>
+                                    <span className="contact__label">{d.label}</span>
+                                    {d.href ? <a href={d.href}>{d.value}</a> : <span>{d.value}</span>}
+                                    {d.note && <span className="contact__note">{d.note}</span>}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
-                <div className="contact-form-wrapper">
-                    <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>Send us a Message</h3>
-                    <form onSubmit={handleSubmit}>
-                        <input type="text" name="_honey" className="form-honey" tabIndex="-1" autoComplete="off" aria-hidden="true" />
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input type="text" id="name" name="name" className="form-input" placeholder="Your Name" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id="email" name="email" className="form-input" placeholder="your@email.com" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="message">Message</label>
-                            <textarea id="message" name="message" rows="4" className="form-textarea" placeholder="How can we help you?" required></textarea>
-                        </div>
-                        <button type="submit" className="submit-btn" disabled={status === 'sending'}>
-                            {status === 'sending' ? 'Sending…' : 'Send Message'}
-                        </button>
-                        {status === 'sent' && (
-                            <p className="form-status form-status--ok" role="status">Thanks! Your message has been sent. We'll be in touch soon.</p>
-                        )}
-                        {status === 'error' && (
-                            <p className="form-status form-status--error" role="alert">
-                                Sorry, that didn't send. Please email <a href="mailto:paul@riskrescuesolutions.com.au">paul@riskrescuesolutions.com.au</a> or call 0407 557 612.
-                            </p>
-                        )}
-                    </form>
-                </div>
+                <form className="form" onSubmit={handleSubmit}>
+                    <h3 className="form__title">Send a message</h3>
+                    <input type="text" name="_honey" className="form__honey" tabIndex="-1" autoComplete="off" aria-hidden="true" />
+
+                    <label className="form__field">
+                        <span>Name</span>
+                        <input type="text" name="name" autoComplete="name" required />
+                    </label>
+                    <div className="form__row">
+                        <label className="form__field">
+                            <span>Email</span>
+                            <input type="email" name="email" autoComplete="email" inputMode="email" required />
+                        </label>
+                        <label className="form__field">
+                            <span>Phone <em>(optional)</em></span>
+                            <input type="tel" name="phone" autoComplete="tel" inputMode="tel" />
+                        </label>
+                    </div>
+                    <label className="form__field">
+                        <span>How can we help?</span>
+                        <textarea name="message" rows="5" required />
+                    </label>
+
+                    <button type="submit" className="btn btn--primary form__submit" disabled={status === 'sending'}>
+                        {status === 'sending' ? 'Sending…' : 'Send message'}
+                    </button>
+
+                    {status === 'sent' && (
+                        <p className="form__status form__status--ok" role="status">
+                            Thanks, your message has been sent. We'll be in touch soon.
+                        </p>
+                    )}
+                    {status === 'error' && (
+                        <p className="form__status form__status--error" role="alert">
+                            Sorry, that didn't send. Please email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> or
+                            call <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>.
+                        </p>
+                    )}
+                </form>
             </div>
         </section>
     );
