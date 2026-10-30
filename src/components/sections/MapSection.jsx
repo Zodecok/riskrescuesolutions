@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { COUNTRIES } from '../../content';
+import { LAND, MAP_H, MAP_W, SITES, WORKED } from './workMap.data';
 import './MapSection.css';
 
+// Keep labels inside the frame (South Africa sits right on the left edge)
+const clampX = (x) => Math.min(Math.max(x, 80), MAP_W - 80);
+
 const MapSection = () => {
-    // The map is locked until tapped, so swiping past it on a phone scrolls the page instead of the map.
-    const [active, setActive] = useState(false);
+    const [active, setActive] = useState(null);
 
     return (
         <section className="section section--warm" id="areas">
@@ -12,29 +14,47 @@ const MapSection = () => {
                 <span className="eyebrow">Where we work</span>
                 <h2 className="section-heading">Sunshine Coast based, working worldwide</h2>
                 <p className="section-intro">
-                    We've delivered safety work for clients across Australia and overseas. The map shows
-                    sites we've worked on.
+                    We've delivered safety work right across Australia, and overseas in Papua New Guinea,
+                    New Zealand, Saudi Arabia and South Africa.
                 </p>
 
-                <ul className="countries" aria-label="Countries we've worked in">
-                    {COUNTRIES.map((c) => <li key={c}>{c}</li>)}
-                </ul>
+                <figure className="workmap">
+                    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} role="img"
+                        aria-label={`Map showing work in ${WORKED.map((c) => c.name).join(', ')}`}>
+                        <path className="workmap__land" d={LAND} />
+                        {WORKED.map((c) => (
+                            <path key={c.name} className="workmap__worked" d={c.d} />
+                        ))}
+                        <g className="workmap__labels" aria-hidden="true">
+                            {WORKED.map((c) => (
+                                <text key={c.name} x={clampX(c.label[0])} y={c.label[1]}>{c.name}</text>
+                            ))}
+                        </g>
+                        {SITES.map((s) => (
+                            <g key={s.name}
+                                className={`workmap__site ${s.home ? 'is-home' : ''} ${active === s.name ? 'is-active' : ''}`}
+                                transform={`translate(${s.x} ${s.y})`}>
+                                {s.home && <circle className="workmap__ring" r="13" />}
+                                <circle className="workmap__dot" r="6" />
+                            </g>
+                        ))}
+                    </svg>
 
-                <div className={`map ${active ? 'is-active' : ''}`} onMouseLeave={() => setActive(false)}>
-                    <iframe
-                        src="https://www.google.com/maps/d/embed?mid=17wOoyZsnSX_s1_BZ47V9IVnNl2jKtQU&ehbc=2E312F"
-                        title="Map of sites where Risk Rescue Solutions has worked"
-                        loading="lazy"
-                        allowFullScreen
-                    />
-                    {active ? (
-                        <button className="map__done" onClick={() => setActive(false)}>Done</button>
-                    ) : (
-                        <button className="map__cover" onClick={() => setActive(true)}>
-                            <span>Tap to explore the map</span>
-                        </button>
-                    )}
-                </div>
+                    <figcaption className="workmap__key">
+                        <ul className="workmap__countries" aria-label="Countries we've worked in">
+                            {WORKED.slice().reverse().map((c) => <li key={c.name}>{c.name}</li>)}
+                        </ul>
+                        <ul className="workmap__sites" aria-label="Australian sites">
+                            {SITES.map((s) => (
+                                <li key={s.name} className={s.home ? 'is-home' : ''}
+                                    onMouseEnter={() => setActive(s.name)} onMouseLeave={() => setActive(null)}>
+                                    <span className="workmap__pin" aria-hidden="true" />
+                                    {s.name}{s.note && <em> · {s.note}</em>}
+                                </li>
+                            ))}
+                        </ul>
+                    </figcaption>
+                </figure>
             </div>
         </section>
     );
