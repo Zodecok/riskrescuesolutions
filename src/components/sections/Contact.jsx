@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from '../Icon';
-import { ADDRESS, EMAIL, PHONE_DISPLAY, PHONE_HREF } from '../../content';
+import { EMAIL, LOCATION, PHONE_DISPLAY, PHONE_HREF, WHATSAPP_HREF } from '../../content';
 import './Contact.css';
 
 // Our Cloudflare Worker (see /worker) emails each enquiry to Paul through Resend.
@@ -8,8 +8,9 @@ const FORM_ENDPOINT = 'https://rrs-contact.bunjicoops.workers.dev';
 
 const details = [
     { icon: 'phone', label: 'Phone', value: PHONE_DISPLAY, href: PHONE_HREF },
+    { icon: 'whatsapp', label: 'WhatsApp', value: 'Message on WhatsApp', href: WHATSAPP_HREF, external: true },
     { icon: 'mail', label: 'Email', value: EMAIL, href: `mailto:${EMAIL}` },
-    { icon: 'pin', label: 'Office', value: ADDRESS },
+    { icon: 'pin', label: 'Based in', value: LOCATION },
     { icon: 'clock', label: 'Hours', value: 'Mon to Fri, 8am to 5pm', note: 'Weekends by appointment' },
 ];
 
@@ -53,7 +54,9 @@ const Contact = () => {
                                 <Icon name={d.icon} />
                                 <div>
                                     <span className="contact__label">{d.label}</span>
-                                    {d.href ? <a href={d.href}>{d.value}</a> : <span>{d.value}</span>}
+                                    {d.href ? (
+                                        <a href={d.href} {...(d.external && { target: '_blank', rel: 'noopener noreferrer' })}>{d.value}</a>
+                                    ) : <span>{d.value}</span>}
                                     {d.note && <span className="contact__note">{d.note}</span>}
                                 </div>
                             </li>

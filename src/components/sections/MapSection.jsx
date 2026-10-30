@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { COUNTRIES } from '../../content';
 import './MapSection.css';
 
 const MapSection = () => {
@@ -9,10 +10,15 @@ const MapSection = () => {
         <section className="section section--warm" id="areas">
             <div className="container">
                 <span className="eyebrow">Where we work</span>
-                <h2 className="section-heading">Sunshine Coast based, working Australia-wide</h2>
+                <h2 className="section-heading">Sunshine Coast based, working worldwide</h2>
                 <p className="section-intro">
-                    The map shows sites where we've delivered safety work for clients across the country.
+                    We've delivered safety work for clients across Australia and overseas. The map shows
+                    sites we've worked on.
                 </p>
+
+                <ul className="countries" aria-label="Countries we've worked in">
+                    {COUNTRIES.map((c) => <li key={c}>{c}</li>)}
+                </ul>
 
                 <div className={`map ${active ? 'is-active' : ''}`} onMouseLeave={() => setActive(false)}>
                     <iframe

@@ -6,7 +6,7 @@ import './Hero.css';
 const credentials = [
     { big: '25+ years', small: 'in safety, policing and emergency response' },
     { big: 'Lead Auditor', small: 'ISO 45001, 9001, 14001 and 19011' },
-    { big: 'Trainer', small: 'Nationally recognised high-risk training' },
+    { big: 'Lead Investigator', small: 'ICAM and TapRooT qualified' },
     { big: '$10M', small: 'Public liability insurance' },
 ];
 
@@ -22,7 +22,7 @@ const Hero = () => (
                     Tailored safety and risk management for Queensland businesses.
                 </p>
                 <p className="hero__text">
-                    Based on the Sunshine Coast and working Australia-wide across mining, civil construction
+                    Based on the Sunshine Coast and working worldwide across mining, civil construction
                     and manufacturing. We work alongside your team to find the hazards and put practical
                     controls in place, without slowing the job down.
                 </p>

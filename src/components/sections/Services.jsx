@@ -6,16 +6,16 @@ const services = [
         items: ['ISO 19011', 'ISO 14001', 'ISO 45001', 'ISO 9001', 'Informal audits as required'],
     },
     {
-        title: 'Nationally recognised training',
-        items: ['Work at heights', 'Confined space entry', 'Gas test atmospheres', 'Permit issuer'],
+        title: 'Queensland Accredited (QRide) Motorcycle Trainer',
+        text: 'Motorcycle training, plus training and support for motorcycle tours and expeditions.',
     },
     {
         title: 'Risk management',
         text: 'Building and maintaining OH&S management systems that fit how your business actually runs.',
     },
     {
-        title: 'Rehabilitation',
-        text: 'Rehabilitation and Return to Work Coordinator (QLD) to get injured workers safely back on the job.',
+        title: 'Private investigations',
+        text: 'Licensed Queensland Private Investigator.',
     },
     {
         title: 'Incident response',
@@ -23,7 +23,7 @@ const services = [
     },
     {
         title: 'Incident investigations',
-        text: 'Finding out what happened and why, and making sure it doesn\'t happen again.',
+        text: 'ICAM and TapRooT Lead Investigator qualified. Finding out what happened and why, and making sure it doesn\'t happen again.',
     },
     {
         title: 'Fire equipment',

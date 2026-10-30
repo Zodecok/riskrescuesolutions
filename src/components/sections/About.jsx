@@ -12,6 +12,8 @@ const qualifications = [
     'Cert IV Health Care / Cert II First Medical Response (EMT)',
     'Cert III Mine Emergency Response and Rescue',
     'Cert II Fire Protection Inspection and Testing',
+    'Queensland Accredited (QRide) Motorcycle Trainer',
+    'Queensland Private Investigator (licensed)',
     'Professional indemnity insurance, $1M',
     'Public liability insurance, $10M',
 ];
